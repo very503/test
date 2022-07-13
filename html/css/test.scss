@@ -1,0 +1,300 @@
+html{
+    font-size: 3vw;
+    body{
+        font-size: 0.7vw;
+        overflow-x: hidden;
+    }
+}
+
+//변수선언
+$lh: #{'min(40px,1rem)'};
+$lh2:#{'min(80px,2rem)'};
+
+
+//미디어쿼리 적용
+@mixin mob {
+    @media (max-width:420px) and (min-width:0px){
+        @content;
+    }
+
+}
+
+
+//그리드 적용
+@mixin grid($dg) {
+    @if($dg=='mob'){
+        width: 90%;
+        max-width: 700px;
+    }
+    @else{
+        width: 80%;
+        max-width: 1080px;
+    }
+    margin: 0 auto;
+}
+
+
+//이미지
+@mixin bg {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+//플랙스
+@mixin fl {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+//폰트적용
+@mixin ft($fontname,$url){
+    @font-face {
+        font-family: '#{$fontname}';
+        src: url('./fonts/#{$url}') format('truetype');
+    }
+}
+@include ft(ptr,'Pretendard-Regular.ttf');
+@include ft(ptm,'Pretendard-Medium.ttf');
+@include ft(ptl,'Pretendard-Light.ttf');
+@include ft(ptsb,'Pretendard-SemiBold.ttf');
+
+//헤더
+.hdrWrap{
+    margin-top: $lh2;
+    header{
+        //모바일에서 적용
+        @include mob{
+            @include grid('mob');
+        }
+        @include grid('pc');
+        color: #333;
+        line-height: $lh;
+        h2{
+            font-family: 'ptsb';
+            font-size: #{'min(24px,2.4em)'};
+            span{
+                font-family: 'ptr';
+                font-size: #{'min(10px,1em)'};
+                margin-left: #{'min(10px,0.25rem)'};
+            }
+        }
+        .menu{
+            //모바일에서 적용
+            @include mob{
+                margin-top: #{'min(30px,0.75rem)'};
+            }
+            font-family: 'ptr';
+            font-size: #{'min(20px,2em)'};
+            @include fl;
+            li{
+                //모바일에서 적용
+                @include mob{
+                    @include grid('mob');
+                    width: calc(100% / 12 * 1.4);
+                }
+                width: calc(100% / 12 * 2);
+                text-align: center;
+                cursor: pointer;
+                position: relative;
+                &:nth-child(1){
+                    font-family: 'ptsb';
+                    color: #0078d4;
+                }
+                &:hover{
+                    font-family: 'ptsb';
+                    color: #0078d4;
+                    &::after{
+                        //모바일에서 적용
+                        @include mob{
+                            margin-top: #{'min(20px,0.5rem)'};
+                        }
+                        content: '';
+                        display: block;
+                        width: 100%;
+                        margin: 0 auto;
+                        height: 3px;
+                        background-color: #0078d4;
+                        position: absolute;
+                        z-index: 99;
+                    }
+                }
+            }
+        }
+        .bar{
+            //모바일에서 적용
+            @include mob{
+                margin-top: #{'min(20px,0.5rem)'};
+            }
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            .barbg{}
+        }
+    }
+}
+
+// 메뉴박스
+.menuBoxWrap{
+    .menuBox{
+        //모바일에서 적용
+        @include mob{
+            @include grid('mob');
+        }
+        @include grid('pc');
+        .menu01{
+            //모바일에서 적용
+            @include mob{
+                @include grid('mob');
+                width: calc(100% / 12 * 9 );
+                margin-top: 10px;
+                margin-left: 0;
+            }
+            @include fl;
+            width: calc(100% / 12 * 6 );
+            font-family: 'ptm';
+            color: #0078d4;
+            font-size: #{'min(16px,1.6em)'};
+            line-height: $lh;
+            li{
+                width: calc(100% / 3);
+                text-align: center;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+//컨텐츠
+.cntWrap{
+    //모바일에서 적용
+    @include mob{
+        margin-top: #{'min(30px,0.75rem)'};
+    }
+    margin-top: #{'min(20px,0.5rem)'};
+    .content{
+        //모바일에서 적용
+        @include mob{
+            @include grid('mob');
+        }
+        @include grid('pc');
+        section{
+            //모바일에서 적용
+            @include mob{
+                display: block;
+                justify-content: block;
+            }
+            @include fl;
+            .artLeft{
+                //모바일에서 적용
+                @include mob{
+                    width: calc(100% - 20px);
+                }
+                width: calc((100% / 12) * 8 - 20px);
+                margin: 0 10px;
+                article{
+                    color: #555;
+                    cursor: pointer;
+                    &:nth-child(1){
+                        background-color: #f2f7fc;
+                    }
+                    &:nth-child(n+1)~:nth-child(-n+10){
+                        &:hover{
+                            background-color: #0078d4;
+                            color: #fff;
+                        }
+                    }
+                    .texts{
+                        @include fl;
+                        h3{
+                            //모바일에서 적용
+                            @include mob{
+                                line-height: #{'min(50px,1.25rem)'};
+                            }
+                            width: calc(100% / 4);
+                            line-height: $lh;
+                            text-align: center;
+                            font-family: 'ptl';
+                            font-size: #{'min(16px,1.6em)'};
+                        }
+                    }
+                }
+            }
+            .artRight{
+                //모바일에서 적용
+                @include mob{
+                    margin-top: $lh;
+                    width: calc(100% - 20px);
+                }
+                width: calc((100% / 12) * 4 - 20px);
+                margin: 0 10px;
+                .artView{
+                    //모바일에서 적용
+                    @include mob{
+                        height: #{'min(360px,9rem)'};
+                    }
+                    width: 100%;
+                    height: #{'min(400px,10rem)'};
+                    border: 1px solid #ccc;
+                    overflow: hidden;
+                    .artGroup{
+                        @include fl;
+                        width: 200%;
+                        article{
+                            //모바일에서 적용
+                            @include mob{
+                                @include fl;
+                            }
+                            width: 100%;
+                            .image{
+                                //모바일에서 적용
+                                @include mob{
+                                    width: calc(100% / 12 * 3);
+                                    height: #{'min(280px,7rem)'};
+                                }
+                                width: 50%;
+                                margin: #{'min(30px,0.75rem)'} auto;
+                                height: #{'min(200px,5rem)'};
+                                @include bg;
+                                &.i1{
+                                    background-image: url('../images/cnt01.jpg');
+                                }
+                                &.i2{
+                                    background-image: url('../images/cnt01.jpg');
+                                }
+                            }
+                            .texts{
+                                //모바일에서 적용
+                                @include mob{
+                                    width: calc(100% / 12 * 8);
+                                    margin-top: #{'min(100px,2.5rem)'};
+                                    line-height: $lh;
+                                }
+                                @include fl;
+                                font-size: #{'min(16px,1.6em)'};
+                                font-family: 'ptl';
+                                color: #555;
+                                line-height: #{'min(25px,0.65rem)'};
+                                .txtLeft{
+                                    //모바일에서 적용
+                                    @include mob{
+                                        width: calc(100% / 8 * 2);
+                                        margin-right: #{'min(20px,0.5rem)'};
+                                    }
+                                    width: calc(100% / 4);
+                                    margin-right: #{'min(10px,0.25rem)'};
+                                    text-align: right;
+                                }
+                                .txtRight{
+                                    width: calc(100% / 4 * 3);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
